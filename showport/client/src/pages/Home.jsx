@@ -1,30 +1,29 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Home(){
+export default function Home() {
+  return (
+    <div style={{ padding: "40px" }}>
 
-return(
+      <h1>ShowPort</h1>
 
-<div>
+      <p>
+        Build and showcase professional teacher portfolios.
+      </p>
 
-<section className="hero">
+      <div style={{ marginTop: "20px" }}>
 
-<h1>
-Showcase Your Teaching Journey
-</h1>
+        <Link to="/register">
+          <button>Create Portfolio</button>
+        </Link>
 
-<p>
-Create professional teaching portfolios
-and connect with educators worldwide.
-</p>
+        <Link to="/teachers">
+          <button style={{ marginLeft: "10px" }}>
+            Browse Teachers
+          </button>
+        </Link>
 
-<button>
-Create Portfolio
-</button>
+      </div>
 
-</section>
-
-</div>
-
-);
-
+    </div>
+  );
 }
