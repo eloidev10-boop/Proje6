@@ -1,47 +1,47 @@
-import {useState} from "react";
+import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Register(){
+export default function Register() {
 
-const [form,setForm]=useState({
-fullName:"",
-email:"",
-password:""
-});
+  const nav = useNavigate();
 
-const submit = async(e)=>{
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: ""
+  });
 
-e.preventDefault();
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-await axios.post(
-"http://localhost:5000/api/auth/register",
-form
-);
+  const submit = async (e) => {
+    e.preventDefault();
 
-};
+    await axios.post("http://localhost:5000/api/auth/register", form);
 
-return(
+    alert("Account created");
 
-<form onSubmit={submit}>
+    nav("/login");
+  };
 
-<input
-placeholder="Full Name"
-/>
+  return (
+    <form onSubmit={submit} style={{ padding: "40px" }}>
 
-<input
-placeholder="Email"
-/>
+      <h2>Register Teacher</h2>
 
-<input
-placeholder="Password"
-/>
+      <input name="fullName" placeholder="Full Name" onChange={handleChange} />
+      <br />
 
-<button>
-Register
-</button>
+      <input name="email" placeholder="Email" onChange={handleChange} />
+      <br />
 
-</form>
+      <input name="password" type="password" placeholder="Password" onChange={handleChange} />
+      <br />
 
-);
+      <button>Create Account</button>
 
+    </form>
+  );
 }
