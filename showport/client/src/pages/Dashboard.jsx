@@ -1,41 +1,29 @@
-import {useEffect,useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Teachers(){
+export default function Dashboard() {
 
-const [teachers,setTeachers]=useState([]);
+  const [teacher, setTeacher] = useState(null);
 
-useEffect(()=>{
+  useEffect(() => {
 
-axios.get(
-"http://localhost:5000/api/teachers"
-)
-.then(res=>setTeachers(res.data));
+    const token = localStorage.getItem("token");
 
-},[]);
+    axios.get("http://localhost:5000/api/auth/me", {
+      headers: { Authorization: `Bearer ${token}` }
+    }).then(res => setTeacher(res.data));
 
-return(
+  }, []);
 
-<div>
+  if (!teacher) return <p>Loading...</p>;
 
-<h1>Teachers</h1>
+  return (
+    <div style={{ padding: "40px" }}>
 
-{
-teachers.map(t=>(
-<div key={t._id}>
+      <h1>Welcome {teacher.fullName}</h1>
 
-<img src={t.photo} />
+      <p>Create and edit your portfolio here.</p>
 
-<h2>{t.fullName}</h2>
-
-<p>{t.subject}</p>
-
-</div>
-))
-}
-
-</div>
-
-);
-
+    </div>
+  );
 }
